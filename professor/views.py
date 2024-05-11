@@ -147,7 +147,7 @@ def activate(request, uidb64, token):
         user.save()  
         return render (request, 'email_confirmation.html')  
     else:  
-        return HttpResponse('Activation link is invalid!') 
+        return HttpResponse("Activation link is invalid!") 
 
 @login_required
 def dashboard(request):
