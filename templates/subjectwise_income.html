@@ -1,0 +1,86 @@
+{% extends 'dashboardbase.html' %}
+
+
+{% block content %}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Subject based Reports </h1>
+    <div class="btn-group">
+    <button onclick =  "window.print()" class = "btn btn-dark d-print-none" >Export</button>
+    <a href="{% url 'reports' %}" class = "btn btn-back float-right">Back</a>
+  </div>
+</div>
+
+{% if subject_list %}
+<form action="" method="post">
+    {% csrf_token %}
+    <label for="" class="form-label">Select subject</label>
+    <select name="selected_subject" class = "form-select">
+        {% for subject in subject_list %}
+        <option value="{{subject.id}}">{{subject.subject_name}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Submit" class = "btn btn-danger mt-4">
+</form>
+{% endif %}
+
+{% if final_data %}
+<table class="table table-bordered" id = "myTable">
+    <thead>
+        <tr>
+           
+            <th >Subject</th>
+            <th >Class</th>
+            
+            <th >Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in final_data %}
+        <tr>
+            
+            <td>{{i.subject.subject_name}}</td>
+            <td>{{i.subject.classes.institute_name}}</td>
+            
+            <td>{{i.income_amount}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+          <th></th> <th></th> <th id="total-amount"></th>
+         </tr>
+      </tfoot>
+</table>
+
+{% endif %}
+{% if not final_data and not subject_list %}
+<h1 class="h2 text-center">No Data Found</h1>
+
+
+{% endif %}
+
+
+<script>
+    $(document).ready(function() {
+      var table = $('#myTable').DataTable({
+        // Your other DataTable options...
+    
+        // Footer callback function to calculate and display total amount
+        footerCallback: function ( row, data, start, end, display ) {
+          var api = this.api();
+          var total = api.column(2).data().reduce( function (a, b) {
+            return parseFloat(a) + parseFloat(b);
+          }, 0 );
+          
+          // Update the total amount cell
+          $('#total-amount').html('Total: ' + total.toFixed(2));
+        }
+      });
+    });
+    
+    </script>
+    
+
+
+{% endblock %}

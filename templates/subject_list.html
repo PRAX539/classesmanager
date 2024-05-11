@@ -1,0 +1,41 @@
+{% extends 'dashboardbase.html' %}
+
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Subject List  </h1><br>
+      <div class="btn-group">
+      <button onclick =  "window.print()" class = "btn btn-dark d-print-none" >Export</button>
+      <a href="{% url 'reports' %}" class = "btn btn-back d-print-none">Back</a>
+</div>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <th>Sr. NO.</th>
+        <th>Institute</th>
+        <th>Standard</th>
+
+
+
+        
+        <th>Subject</th>
+      
+    </thead>
+    <tbody>
+        {% for i in sub_list %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.classes.institute_name}}</td>
+            <td>{{i.standard.standard_name}}</td>
+            <td>{{i.subject_name}}</td>
+          
+        </tr>
+        {% endfor %}    
+    </tbody>
+</table>
+
+
+
+
+{% endblock %}

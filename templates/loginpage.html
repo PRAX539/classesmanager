@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'messages.html' %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<div class="container mt-5">
+
+  <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+    <h1 class="h1 text-center ">Classes Manager </h1>
+    <h3 class="h3 d-flex justify-content-end mb-3">Your Scheduler</h3>
+    <form action="" method="post">
+      {% csrf_token %}
+      {% if login_errors %}
+      <div class="text-danger text-center">
+        {{ login_errors }}
+      </div>
+      {% endif %}
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control{% if login_errors %} is-invalid{% endif %}" placeholder="username"
+          name="username">
+        <label for="">User Name</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control{% if login_errors %} is-invalid{% endif %}" placeholder="Password"
+          name="password">
+        <label for="">Password</label>
+      </div>
+      <div class="text-center"> <input type="submit" value="Login" class=" btn btn-danger mt-4 btn-lg"></div>
+
+
+      <a href="{% url 'forgot_password' %}" class="text-decoration-none text-dark float-start mt-2">Forgot Password?</a>
+      <a href="{% url 'registeruser' %}" class="text-decoration-none text-dark float-end mt-2">New user ? </a>
+
+    </form>
+  </div>
+
+</div>
+
+
+{% endblock %}

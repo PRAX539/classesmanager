@@ -1,0 +1,120 @@
+{% extends 'dashboardbase.html' %}
+
+
+{% block content %}
+
+
+<div class="align-items-center">
+    <h1 class="text-center"> Edit Institutions </h1>
+</div>
+
+<form action="" method="post">
+    {% csrf_token %}
+
+    <div class="row mt-5">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-floating mb-3">
+
+                <input type="text" class="form-control{% if form.institute_name.errors %} is-invalid{% endif %}"
+                    name="{{form.institute_name.name}}" placeholder="pincode" value="{{form.institute_name.value}}">
+                <label class="form-label" for="{{ form.institute_name.id_for_label }}">Name of the Instituttion</label>
+                {% if form.institute_name.errors %}
+                <span class="invalid-feedback">
+                    {% for error in form.institute_name.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-floating mb-3">
+
+                <input type="text" class="form-control{% if form.institute_contact.errors %} is-invalid{% endif %}"
+                    name="{{form.institute_contact.name}}" placeholder="pincode"
+                    value="{{form.institute_contact.value}}">
+                <label class="form-label" for="{{ form.institute_contact.id_for_label }}">Contact Number</label>
+                {% if form.institute_contact.errors %}
+                <span class="invalid-feedback">
+                    {% for error in form.institute_contact.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </span>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="form-floating mb-3">
+            <textarea name="{{form.institute_details.name}}" style="height: 75px;"
+                class="form-control{% if form.institute_details.errors %} is-invalid{% endif %}"
+                Placeholder="Institute Details">{{form.institute_details.value}}</textarea>
+            <label class="form-label" for="{{ form.institute_details.id_for_label }}">Institute Details</label>
+            {% if form.institute_details.errors %}
+            <span class="invalid-feedback">
+                {% for error in form.institute_details.errors %}
+                {{ error }}
+                {% endfor %}
+            </span>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <input type="submit" value="Save" class="btn btn-success">
+
+    <a href="{% url 'delete_classes' id %}" class="btn btn-warning">Delete</a>
+    <a href="{% url 'add_classes' %}" class="btn btn-primary"><span data-feather="plus"></span>Add </a>
+    <a href="{% url 'dashboard' %}" class="btn btn-danger">Dashboard</a>
+</form>
+
+<hr class = "border border-danger border-2 opacity-50">
+    <h1 class="h2 mt-3 text-center">List of Institutions</h1><br>
+  
+
+
+
+<table class = "table table-hover table-bordered mt-2" id = "myTable">
+  <thead>
+      <th>Sr. NO.</th>
+      <th>Institute Name</th>
+      <th>Institute Contact Details</th>
+     
+      
+  </thead>
+  <tbody>
+    {% for i in class_list %}
+    <tr data-href="{% url 'edit_classes' i.id %}"> 
+        <td>{{ forloop.counter }}</td>
+      <td>{{ i.institute_name }}</td>
+      <td>{{ i.institute_contact }}</td>
+     
+    </tr>
+  {% endfor %}
+
+  </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            "responsive": true,
+            "dom": "f<'clear'>"
+        });
+        $('tr[data-href]').on("click",function(){
+            document.location = $(this).data('href');
+        }
+        )
+
+
+    });
+
+</script>
+
+
+
+{% endblock %}

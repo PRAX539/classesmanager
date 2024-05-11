@@ -1,0 +1,28 @@
+{% extends 'dashboardbase.html' %}
+
+
+{% block content %}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Master Reports</h1>
+    <a href="{% url 'dashboard' %}" class = "btn btn-success">Dashboard</a>
+</div>
+
+
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-12 col-lg-4">
+            <label for="">Select Institute</label>
+            <select name="selected_institute" id="">
+                <option value="all_institute">All Institute</option>
+                {% for i in institute %}
+                <option value="{{i.id}}">{{i.name}}"></option>
+            </select>
+        </div>
+
+    </div>
+</form>
+
+
+{% endblock %}

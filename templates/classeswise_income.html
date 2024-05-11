@@ -1,0 +1,82 @@
+{% extends 'dashboardbase.html' %}
+
+
+{% block content %}
+
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Institution Based Income</h1>
+    <div class="btn-group">
+    <a href="{% url 'reports' %}" class = "btn btn-back d-print-none">Back</a>
+    <button onclick =  "window.print()" class = "btn btn-dark d-print-none" >Export</button>
+  </div>
+  </div>
+{% if class_list %}
+<form action="" method="post">  
+    {% csrf_token %}
+    
+    <select class="form-select"  name="selected_class" >
+        {% for class in class_list %}
+        <option value="{{ class.id }}">{{ class.institute_name }}</option>
+    {% endfor %}
+      </select>
+      <input type="submit" value="Submit" class = "btn btn-danger mt-4">
+</form>
+{% endif %}
+
+{% if final_data %}
+<table class = "table table-hover table-bordered" id = "myTable">
+    <thead>
+        <th>Sr. NO.</th>
+        <th>Subject</th>
+        <th>Date</th>
+        <th>Amount</th>
+    </thead>
+    <tbody>
+        {% for final in final_data %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ final.subject }}</td>
+            <td>{{ final.income_date }}</td>
+            <td>{{ final.income_amount }}</td>
+        </tr>
+        {% endfor %}
+        <tfoot>
+            <tr>
+              <th></th> <th></th> <th></th> <th id="total-amount"></th>
+             </tr>
+          </tfoot>
+    </tbody>
+</table>
+
+
+{% endif %}
+
+{% if not final_data and not class_list %}
+<h1 class="h2 text-center">No Data Found</h1>
+
+
+{% endif %}
+
+<script>
+$(document).ready(function() {
+  var table = $('#myTable').DataTable({
+    // Your other DataTable options...
+
+    // Footer callback function to calculate and display total amount
+    footerCallback: function ( row, data, start, end, display ) {
+      var api = this.api();
+      var total = api.column(3).data().reduce( function (a, b) {
+        return parseFloat(a) + parseFloat(b);
+      }, 0 );
+      
+      // Update the total amount cell
+      $('#total-amount').html('Total: ' + total.toFixed(2));
+    }
+  });
+});
+
+</script>
+
+
+{% endblock %}

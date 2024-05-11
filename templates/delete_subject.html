@@ -1,0 +1,65 @@
+{% extends 'dashboardbase.html' %}
+
+
+{% block content %}
+<div class=" align-items-center ">
+      <h1 class="h2 text-center">Delete Subject</h1><br>
+      
+</div>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete this Subject {{sub_id}}?</p>
+    <input type="submit" value="Delete" class = "btn btn-danger">
+    <a href="{% url 'dashboard' %}" class = "btn btn-success">Dashboard</a>
+    <a href="{% url 'add_subject' %}" class = "btn btn-warning"><span data-feather="plus"></span>Add Subject</a>
+</form>
+
+
+<hr class = "border border-danger border-2 opacity-50">
+
+<div class=" align-items-center">
+    <h1 class="h2 text-center">Subject List  </h1><br>
+    
+</div>
+
+<table class="table table-hover table-bordered mt-1" id = "myTable">
+  <thead>
+      
+      <th>Institute</th>
+      <th>Standard</th>
+      <th>Subject</th>
+      
+  </thead>
+  <tbody>
+      {% for i in sub_list %}
+      <tr data-href= "{% url 'edit_subject' i.id %}">
+       
+          <td>{{i.classes.institute_name}}</td>
+          <td>{{i.standard.standard_name}}</td>
+          <td>{{i.subject_name}}</td>
+          
+      </tr>
+      {% endfor %}    
+  </tbody>
+</table>
+<script>
+    $(document).ready(function() {
+      $('#myTable').DataTable({
+        "responsive": true,
+        "dom":"f<'clear'>"  
+      }
+      );
+      $('tr[data-href]').on("click",function(){
+            document.location = $(this).data('href');
+        }
+        )
+    
+    
+    
+    });
+    
+    </script>
+
+
+{% endblock %}

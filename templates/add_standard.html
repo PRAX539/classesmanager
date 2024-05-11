@@ -1,0 +1,75 @@
+{% extends 'dashboardbase.html' %}
+
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+     <h1 class="h2"> Add Standard </h1>
+</div>
+
+<form action="" method="post">
+    {% csrf_token %}
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-floating mb-3">
+
+                <input type="text" class="form-control{% if form.standard_name.errors %} is-invalid{% endif %}"
+                    name="{{form.standard_name.name}}" placeholder="standard" >
+                <label class="form-label" for="{{ form.standard_name.id_for_label }}">Standard</label>
+                {% if form.standard_name.errors %}
+                <span class="invalid-feedback">
+                    {% for error in form.standard_name.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </span>
+                {% endif %}
+            </div>
+        </div>
+        
+    
+    <input type="submit" value="Save" class = "btn btn-success">
+    <a href="{% url 'dashboard' %}" class = "btn btn-danger">Dashboard</a>
+</form>
+
+<hr class = "border border-danger border-2 opacity-50">
+
+
+<div class=" align-items-center">
+    <h1 class="h2 text-center">Standard List  </h1>
+   
+    
+</div>
+
+<table class="table table-hover table-bordered" id = "myTable">
+  <thead>
+      <th>Sr. NO.</th>
+      <th>Standard </th>
+  </thead>
+  <tbody>
+      {% for i in std_list %}
+      <tr data-href="{% url 'edit_standard' i.id %}">
+          <td>{{forloop.counter}}</td>
+          <td>{{i.standard_name}}</td>
+      </tr>
+      {% endfor %}    
+  </tbody>
+</table>
+<script>
+    $(document).ready(function() {
+      $('#myTable').DataTable({
+        "responsive": true,
+        "dom":"f<'clear'>"  
+      }
+      );
+      $('tr[data-href]').on("click",function(){
+            document.location = $(this).data('href');
+        }
+        )
+
+    
+    
+    });
+    
+    </script>
+
+
+
+{% endblock %}

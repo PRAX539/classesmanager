@@ -1,0 +1,164 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .h2{
+    font-family: fantasy;
+    color: #124076;
+}
+</style>
+<div class="container mt-5">
+    
+    <div class = "card shadow p-3 mb-5 bg-body-tertiary rounded">
+        <h2 class = "h2 text-center"> Classes Manager</h2>
+        <h5 class="h5 d-flex justify-content-end mb-3">Your Scheduler</h5>
+
+        <form action="" method="post" autocomplete="off">
+            {% csrf_token %}
+            <h3 class = "h3 text-center"> Please fill the Information</h3>
+            <div class="row mt-5">
+                <div class="col-sm-12 col-lg-4">
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control{% if form.username.errors %} is-invalid{% endif %}" name ="{{form.username.name}}" placeholder="username">
+                        <label for="{{form.username.id_for_label}}">User Name</label>
+                        {% if form.username.errors %}
+                            <span class="invalid-feedback">
+                                {% for error in form.username.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </span>
+                        {% endif %}   
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-lg-4">
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control{% if form.password1.errors %} is-invalid {% endif %}"  placeholder="password" name = "{{form.password1.name}}">
+                        <label for="{{form.password1.id_for_label}}">Password</label>    
+                        {% if form.password.errors %}
+                        <span class="invalid-feedback">
+                            {% for error in form.password1.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </span>
+                    {% endif %}  
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-lg-4">
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control{% if form.password2.errors %} is-invalid {% endif %}"  placeholder="confirm password" name = "{{form.password2.name}}">
+                        <label for="{{form.password2.id_for_label}}">Confirm Password</label>    
+                        {% if form.password2.errors %}
+                        <span class="invalid-feedback">
+                            {% for error in form.password2.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </span>
+                    {% endif %} 
+                    </div>
+
+                </div>
+                
+            </div>
+
+            <div class="row ">
+                <div class="col-sm-12 col-lg-4">
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control{% if form.first_name.errors %} is-invalid{% endif %}" id="first_name" placeholder="First name" name = "{{form.first_name.name}}">
+                        <label for="{{form.first_name.id_for_label}}">First Name</label>  
+                        {% if form.first_name.errors %}
+                        <span class="invalid-feedback">
+                            {% for error in form.first_name.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </span>
+                    {% endif %}   
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-lg-4">
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control{% if form.middle_name.errors %} is-invalid{% endif %}" id="middle_name" placeholder="Middle Name" name = "{{form.middle_name.name}}">
+                        <label for="{{form.middle_name.id_for_label}}">Middle Name</label> 
+                        {% if form.middle_name.errors %}
+                        <span class="invalid-feedback">
+                            {% for error in form.middle_name.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </span>
+                    {% endif %}      
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-lg-4">
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control{% if form.last_name.errors %} is-invalid{% endif %}" id="last_name" placeholder="Last Name" name = "{{form.last_name.name}}">
+                        <label for="{{form.last_name.id_for_label}}">Last Name</label>  
+                        {% if form.last_name.errors %}
+                        <span class="invalid-feedback">
+                            {% for error in form.last_name.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </span>
+                    {% endif %}  
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control{% if form.email.errors %} is-invalid{% endif %}" id="email" placeholder="Email" name = "{{form.email.name}}">
+                        <label for="{{form.email.id_for_label}}">Email</label>   
+                        {% if form.email.errors %}
+                        <span class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </span>
+                    {% endif %}   
+                    </div>
+
+                </div>
+
+                <div class="col-sm-12 col-lg-6">
+
+                    <div class="form-floating mb-3">
+                        <input type="Number" class="form-control{% if form.contact_number.errors %} is-invalid{% endif %}" id="contact_number" placeholder="contact_number" name = "{{form.contact_number.name}}">
+                        <label for="{{form.contact_number.id_for_label}}">Contact Number</label>  
+                        {% if form.email.errors %}
+                        <span class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </span>
+                    {% endif %}  
+                    </div>
+
+                </div>
+
+            </div>
+            
+                <input type="submit" value="Register" class = " btn btn-danger mt-4 btn-lg">
+                <a href="{% url 'loginpage' %}" class ="btn btn-success mt-4 btn-lg">Login</a>
+
+
+        </form>    
+
+
+        {% endblock %}
+
+
+    </div>
+
+</div>

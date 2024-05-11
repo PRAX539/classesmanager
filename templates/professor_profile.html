@@ -1,0 +1,228 @@
+{% extends 'dashboardbase.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Edit Profile </h1><br>
+    </div>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!--  Profile Pic Area -->
+        
+
+        <div class="row justify-content-lg-center">
+            <div class="col-sm-12 col-lg-auto col-md-auto">
+                    {% if form.profile_pic.value %}
+                    <img src="{{ MEDIA_URL }}/{{form.profile_pic.value}}" class="rounded-circle mx-auto d-block" width="150"
+                        height="150" alt="Profile"><br>
+                    {% else %}
+                   <h5>Profile Image</h5>
+                    {% endif %}
+                    {{form.profile_pic}}
+               
+
+            </div>
+
+        </div>
+        <div class="row mt-5">
+            <!--  First name  -->
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="form-floating mb-3">
+
+                    <input type="text" class="form-control{% if form2.first_name.errors %} is-invalid{% endif %}"
+                        name="{{form2.first_name.name}}" placeholder="First Name" value="{{form2.first_name.value}}">
+                    <label class="form-label" for="{{ form2.first_name.id_for_label }}">First Name</label>
+                    {% if form2.first_name.errors %}
+                    <span class="invalid-feedback">
+                        {% for error in form2.first_name.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+            <!--  Middle Name -->
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="form-floating mb-3">
+
+                    <input type="text" class="form-control{% if form2.middle_name.errors %} is-invalid{% endif %}"
+                        name="{{form2.middle_name.name}}" placeholder="Middle Name" value="{{form2.middle_name.value}}">
+                    <label class="form-label" for="{{ form2.middle_name.id_for_label }}">Middle Name</label>
+                    {% if form2.middle_name.errors %}
+                    <span class="invalid-feedback">
+                        {% for error in form2.middle_name.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- Last Name -->
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="form-floating mb-3">
+
+                    <input type="text" class="form-control{% if form2.last_name.errors %} is-invalid{% endif %}"
+                        name="{{form2.last_name.name}}" placeholder="Last Name" value="{{form2.last_name.value}}">
+                    <label class="form-label" for="{{ form2.last_name.id_for_label }}">Last Name</label>
+                    {% if form2.last_name.errors %}
+                    <span class="invalid-feedback">
+                        {% for error in form2.last_name.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--  Date of Birth -->
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control{% if form.dob.errors %} is-invalid{% endif %}"
+                        name="{{form.dob.name}}" value="{{form.dob.value|date:'Y-m-d'}}">
+                    <label class="form-label" for="{{ form.dob.id_for_label }}">Date of Birth</label>
+                    {% if form.dob.errors %}
+                    <span class="invalid-feedback">
+                        {% for error in form.dob.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+            <!--  Gender -->
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="form-floating mb-3">
+                    <select name="{{form.gender.name}}" class="form-select">
+                        <option value="Male" {% if form.gender.value == 'Male' %} selected{% endif %}>Male</option>
+                        <option value="Female" {% if form.gender.value == 'Female' %} selected{% endif %}>Female</option>
+                        <option value="Others" {% if form.gender.value == 'Others' %} selected{% endif %}>Others</option>
+                    </select>
+                    <label class="form-label" for="{{ form.gender.id_for_label }}">Gender</label>
+                    {% if form.gender.errors %}
+                    <span class="invalid-feedback">
+                        {% for error in form.gender.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+            <!--  City field  -->
+
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control{% if form.city.errors %} is-invalid{% endif %}"
+                        name="{{form.city.name}}" placeholder="city" value="{{form.city.value}}">
+                    <label class="form-label" for="{{ form.city.id_for_label }}">City</label>
+                    {% if form.city.errors %}
+                    <span class="invalid-feedback">
+                        {% for error in form.city.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </span>
+                    {% endif %}
+                </div>
+
+            </div>
+            <!--  address -->
+            <div class="row">
+
+                <div class="form-floating mb-3">
+                    <textarea name="{{form.address.name}}" style="height: 75px;"
+                        class="form-control{% if form.address.errors %} is-invalid{% endif %}"
+                        Placeholder="Address"></textarea>
+                    <label class="form-label" for="{{ form.address.id_for_label }}">Address</label>
+                    {% if form.address.errors %}
+                    <span class="invalid-feedback">
+                        {% for error in form.address.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </span>
+                    {% endif %}
+                </div>
+
+            </div>
+            <div class="row">
+                <!--  State  -->
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-floating mb-3">
+
+                        <input type="text" class="form-control{% if form.state.errors %} is-invalid{% endif %}"
+                            name="{{form.state.name}}" placeholder="State" value="{{form.state.value}}">
+                        <label class="form-label" for="{{ form.state.id_for_label }}">State</label>
+                        {% if form.state.errors %}
+                        <span class="invalid-feedback">
+                            {% for error in form.state.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+                <!--  Country -->
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-floating mb-3">
+
+                        <input type="text" class="form-control{% if form.country.errors %} is-invalid{% endif %}"
+                            name="{{form.country.name}}" placeholder="Country" value="{{form.country.value}}">
+                        <label class="form-label" for="{{ form.country.id_for_label }}">Country</label>
+                        {% if form.country.errors %}
+                        <span class="invalid-feedback">
+                            {% for error in form.country.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- Pin Code -->
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-floating mb-3">
+
+                        <input type="text" class="form-control{% if form.pincode.errors %} is-invalid{% endif %}"
+                            name="{{form.pincode.name}}" placeholder="pincode" value="{{form.pincode.value}}">
+                        <label class="form-label" for="{{ form.pincode.id_for_label }}">pincode</label>
+                        {% if form.pincode.errors %}
+                        <span class="invalid-feedback">
+                            {% for error in form.pincode.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!--  Tags -->
+        <div class="row">
+
+            <div class="form-floating mb-3">
+                <textarea name="{{form.tags.name}}" style="height: 75px;"
+                    class="form-control{% if form.tags.errors %} is-invalid{% endif %}"
+                    Placeholder="Science, Accounts, T.Y.B.Com, F.Y.J.C"></textarea>
+                <label class="form-label" for="{{ form.tags.id_for_label }}">Tags</label>
+                {% if form.tags.errors %}
+                <span class="invalid-feedback">
+                    {% for error in form.tags.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </span>
+                {% endif %}
+            </div>
+
+        </div>
+
+
+        <input type="submit" value="Submit" class="btn btn-success">
+        <a href="{% url 'dashboard' %}" class="btn btn-danger">Dashboard</a>
+        <a href="{% url 'change_password' user.id %}" class="btn btn-warning">Change Password</a>
+
+    </form>
+
+</div>
+
+
+{% endblock %}

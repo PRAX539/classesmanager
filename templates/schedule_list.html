@@ -1,0 +1,51 @@
+{% extends 'dashboardbase.html' %}
+
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Schedule's</h1>
+        <div class="btn-group">
+      <button onclick =  "window.print()" class = "btn btn-dark d-print-none" >Export</button>
+        <a href="{% url 'reports' %}" class = "btn btn-back d-print-none">Back</a>
+    </div>
+</div>
+
+<table class = "table table-hover table-striped" id = "myTable">
+    <thead>
+        <th>Sr. NO.</th>
+        <th>Date</th>
+        <th>Timing</th>
+        <th>Subject</th>
+      
+    </thead>
+    <tbody>
+        {% for i in schedule_list %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.schedule_date}}</td>
+            <td>{{i.start_time}}-{{i.end_time}}</td>
+            <td>{{i.subject}}</td>
+            
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+<script>
+    $(document).ready(function() {
+  $('#myTable').DataTable({
+    "responsive": true,
+  
+    
+  }
+  );
+
+
+
+});
+
+</script>
+
+   
+
+{% endblock %}

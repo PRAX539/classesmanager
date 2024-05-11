@@ -1,0 +1,80 @@
+{% extends 'dashboardbase.html' %}
+
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Hello! {{user.username|upper}}</h1> 
+</div>
+
+<div class=" mt-2  d-flex">
+   
+   <a href="{% url 'add_classes' %}" class  ="btn btn-warning flex-fill mx-2"><span data-feather="home" ></span><div class = " d-none d-sm-none d-md-block d-lg-block">Add Institute</div></a>
+   <a href="{% url 'add_standard' %}" class ="btn btn-info flex-fill mx-2"><span data-feather = "briefcase"></span><div class=" d-none d-sm-none d-md-block d-lg-block" >Add Standard</div></a>
+   <a href="{% url 'add_subject' %}" class = "btn btn-success flex-fill mx-2"><span data-feather = "book-open"></span><div class = " d-none d-sm-none d-md-block d-lg-block">Add Subject</div></a>
+   <a href="{% url 'add_schedule' %}" class = "btn btn-danger flex-fill mx-2"><span data-feather="calendar" ></span><div class = " d-none d-sm-none d-md-block d-lg-block">Add Schedule</div></a>
+
+</div>
+
+   <div class="row mx-1">
+    <!-- <div class="col-lg-6 col-md-6 col-sm-12 mt-5" id ="current_schedule"> -->
+        <h3 class = "h3 text-center mt-5">Current Schedule</h3>
+        <table class="table table-bordered">
+            <thead>
+                <th>Date</th>
+                <th>timings</th>
+                <th>Details</th>
+            </thead>
+            <tbody>
+                {% for a in after_schedules %}
+                <tr>
+                    <td>{{a.schedule_date}}</td>
+                    <td>{{a.start_time}}- {{a.end_time}}</td>
+                    <td>{{a.subject}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+   </div>
+
+   <hr class = "border border-danger border-2 opacity-50">
+<!--  Details of Income -->
+   <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+          <h4 class="my-0 fw-normal">Monthly Income</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">Rs. {{monthly_income}}</h1>
+         
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+          <h4 class="my-0 fw-normal">Yearly Income</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">Rs. {{yearly_income}}</h1>
+         
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm ">
+        <div class="card-header py-3 ">
+          <h4 class="my-0 fw-normal">Lectures Taken ( Yearly )</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">{{lectures_taken}}</h1>
+       
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock %}

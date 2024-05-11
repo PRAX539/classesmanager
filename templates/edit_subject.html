@@ -1,0 +1,157 @@
+{% extends 'dashboardbase.html' %}
+
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+     <h1 class="h2"> Edit Subject </h1>
+</div>
+<form action="" method="post">
+     {% csrf_token %}
+<div class="row mt-5">
+     <div class="col-lg-4 col-md-4 col-sm-12">
+         <div class="form-floating mb-3">
+
+             <select class="form-select{% if form.classes.errors %} is-invalid{% endif %}"  name="{{form.classes.name}}" >
+               {% for value, label in form.classes.field.choices %}
+               <option value="{{ value }}" {% if value == form.classes.value %} selected {% endif %}>{{ label }}</option>
+           {% endfor %}
+             </select>
+             <label class="form-label" for="{{ form.classes.id_for_label }}">Name of the Instituttion</label>
+             {% if form.classes.errors %}
+             <span class="invalid-feedback">
+                 {% for error in form.classes.errors %}
+                 {{ error }}
+                 {% endfor %}
+             </span>
+             {% endif %}
+         </div>
+     </div>
+     <div class="col-lg-4 col-md-4 col-sm-12">
+          <div class="form-floating mb-3">
+ 
+              <select class="form-select{% if form.standard.errors %} is-invalid{% endif %}"  name="{{form.standard.name}}" >
+                {% for value, label in form.standard.field.choices %}
+                <option value="{{ value }}" {% if value == form.standard.value %} selected {% endif %}>{{ label }}</option>
+            {% endfor %}
+              </select>
+              <label class="form-label" for="{{ form.standard.id_for_label }}">Standard</label>
+              {% if form.classes.errors %}
+              <span class="invalid-feedback">
+                  {% for error in form.classes.errors %}
+                  {{ error }}
+                  {% endfor %}
+              </span>
+              {% endif %}
+          </div>
+     </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+          <div class="form-floating mb-3">
+
+              <input type="text" class="form-control{% if form.subject_name.errors %} is-invalid{% endif %}"
+                  name="{{form.subject_name.name}}" placeholder="Subject" value = "{{form.subject_name.value}}">
+              <label class="form-label" for="{{ form.subject_name.id_for_label }}">Subject</label>
+              {% if form.subject_name.errors %}
+              <span class="invalid-feedback">
+                  {% for error in form.subject_name.errors %}
+                  {{ error }}
+                  {% endfor %}
+              </span>
+              {% endif %}
+          </div>
+      </div>
+      
+</div>
+<div class="row">
+     <div class="col-lg-4 col-md-4 col-sm-12">
+          <div class="form-floating mb-3">
+ 
+              <select class="form-select{% if form.method_of_payment.errors %} is-invalid{% endif %}"  name="{{form.method_of_payment.name}}" >
+                {% for value, label in form.method_of_payment.field.choices %}
+                <option value="{{ value }}"{% if value == form.instance.method_of_payment %} selected {% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+              <label class="form-label" for="{{ form.method_of_payment.id_for_label }}">Method of Payment</label>
+              {% if form.method_of_payment.errors %}
+              <span class="invalid-feedback">
+                  {% for error in form.method_of_payment.errors %}
+                  {{ error }}
+                  {% endfor %}
+              </span>
+              {% endif %}
+          </div>
+     </div>
+     <div class="col-lg-4 col-md-4 col-sm-12">
+          <div class="form-floating mb-3">
+
+              <input type="number" class="form-control{% if form.number_field.errors %} is-invalid{% endif %}"
+                  name="{{form.number_field.name}}" placeholder="Amount/Percentage"  value = "{{form.number_field.value}}">
+              <label class="form-label" for="{{ form.number_field.id_for_label }}">Amount / Percentage</label>
+              {% if form.number_field.errors %}
+              <span class="invalid-feedback">
+                  {% for error in form.number_field.errors %}
+                  {{ error }}
+                  {% endfor %}
+              </span>
+              {% endif %}
+          </div>
+      </div>
+      
+</div>
+
+<input type="submit" value="Save" class = "btn btn-success">
+<a href="{% url 'dashboard' %}" class = "btn btn-danger">Dashboard</a>
+<a href="{% url 'add_subject' %}" class  = "btn btn-warning"><span data-feather="plus"></span> Add</a>
+<a href="{% url 'delete_subject' id %}" class = "btn btn-info">Delete</a>
+
+
+
+</form>
+
+
+<hr class = "border border-danger border-2 opacity-50">
+
+<div class=" align-items-center">
+    <h1 class="h2 text-center">Subject List  </h1><br>
+    
+</div>
+
+<table class="table table-hover table-bordered mt-1" id = "myTable">
+  <thead>
+      
+      <th>Institute</th>
+      <th>Standard</th>
+      <th>Subject</th>
+      
+  </thead>
+  <tbody>
+      {% for i in sub_list %}
+      <tr data-href= "{% url 'edit_subject' i.id %}">
+       
+          <td>{{i.classes.institute_name}}</td>
+          <td>{{i.standard.standard_name}}</td>
+          <td>{{i.subject_name}}</td>
+          
+      </tr>
+      {% endfor %}    
+  </tbody>
+</table>
+<script>
+    $(document).ready(function() {
+      $('#myTable').DataTable({
+        "responsive": true,
+        "dom":"f<'clear'>"  
+      }
+      );
+      $('tr[data-href]').on("click",function(){
+            document.location = $(this).data('href');
+        }
+        )
+    
+    
+    
+    });
+    
+    </script>
+
+
+{% endblock %}

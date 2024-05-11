@@ -1,0 +1,19 @@
+body{
+    background-color: #124076;
+        
+}
+.h1{
+    font-family: fantasy;
+    color: #124076;
+}
+.container {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.card{
+    width: 18 rem;
+}

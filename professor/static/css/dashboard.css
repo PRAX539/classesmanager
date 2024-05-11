@@ -1,0 +1,10 @@
+body {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight:400 ;
+    font-style: normal;
+  }
+  a{
+    text-decoration: none;
+    color: #3e3f40;
+  }
